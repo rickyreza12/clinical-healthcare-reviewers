@@ -2,6 +2,14 @@
 
 Local FastAPI service that checks the supplied synthetic DOCX case packages and reports source-backed findings for a human reviewer. It does not adjudicate claims.
 
+## Contents
+
+- [Runbook](docs/013-Runbook.md)
+- [Run a case](#review-a-case)
+- [Run tests](#tests)
+- [Docker services](#docker)
+- [Documentation](#documentation)
+
 ## Requirements and run
 
 Python 3.11 or newer is required. From this directory:
@@ -16,7 +24,7 @@ uvicorn backend.main:app --reload
 
 The supplied case documents and SOPs live in `apps/data/candidate_package`. Set `BITHEALTH_DATA_DIR` to override that directory. Diagnosis comparisons use explicit terminology mappings first. Optional self-hosted model fallback is configured through `apps/.env`, loaded automatically for local startup and injected by Compose. With `SEMANTIC_ENABLED=false`, no model key is required and unresolved comparisons are escalated.
 
-`.env.example` is active Compose baseline configuration. Local Python startup does not require `.env`. Docker Compose requires it: on a fresh checkout, copy `.env.example` to `.env` (Windows: `Copy-Item .env.example .env`; macOS/Linux: `cp .env.example .env`). Keep `SEMANTIC_ENABLED=false` for a run without model credentials. Never overwrite an existing private `.env` or commit it. See [self-hosted integration guide](../workspaces/integration-with-api/self-hosted-model-integration.md) for model selection, usage records, cost accounting and verification.
+`.env.example` is active Compose baseline configuration. Local Python startup does not require `.env`. Docker Compose requires it: on a fresh checkout, copy `.env.example` to `.env` (Windows: `Copy-Item .env.example .env`; macOS/Linux: `cp .env.example .env`). Keep `SEMANTIC_ENABLED=false` for a run without model credentials. Never overwrite an existing private `.env` or commit it. See the [runbook](docs/013-Runbook.md) for setup, model selection, usage records, cost accounting, and verification.
 
 See [self-hosted model guide](docs/012-Self-Hosted-Models.md) for the available model catalog, configuration, model switching, discovery command, and synthetic smoke check.
 
@@ -42,6 +50,7 @@ Read the documents in this order:
 10. [Submission checklist](docs/010-Final-Submission-Checklist.md)
 11. [Production considerations](docs/011-Production-Considerations.md)
 12. [Self-hosted models](docs/012-Self-Hosted-Models.md)
+13. [Runbook](docs/013-Runbook.md)
 
 ## Review a case
 
@@ -69,4 +78,4 @@ Follow logs with `docker compose -f compose.yaml logs -f`, check first-run index
 
 The minimal API command above does not start Qdrant, the policy indexer, or Phoenix: deterministic case review does not depend on them. To start all optional services, run `docker compose -f compose.yaml up --build -d` instead. The first policy-indexer run requires internet access to download the embedding model. Its vectors are prepared for future retrieval and are not queried by current case reviews.
 
-Phoenix is available at `http://127.0.0.1:6006` when `PHOENIX_ENABLED=true` in `.env`. It receives prompt-free model-call telemetry: model, token counts, latency, outcome, retry, and cost fields. See [Phoenix monitoring](../workspaces/integration-with-api/self-hosted-model-integration.md#phoenix-monitoring) for setup and limits.
+Phoenix is available at `http://127.0.0.1:6006` when `PHOENIX_ENABLED=true` in `.env`. It receives prompt-free model-call telemetry: model, token counts, latency, outcome, retry, and cost fields. See the [runbook](docs/013-Runbook.md#use-and-monitor-the-self-hosted-model) for setup and limits.
