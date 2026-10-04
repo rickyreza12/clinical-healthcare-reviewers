@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "id": "QuantFactory/Qwen3-0.6B-GGUF:Q4_K_M",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "bartowski/google_medgemma-4b-it-GGUF:Q4_K_M",
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    },
+    {
+      "id": "biomistral-7b",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "llama3.2-medical-1b",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "llama3.2-medical-3b",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "medgemma-4b",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "meditron-7b",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "phi3-mini-medical",
+      "input_modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "qwen25-medical-1.5b",
+      "input_modalities": [
+        "text"
+      ]
+    }
+  ]
+}
